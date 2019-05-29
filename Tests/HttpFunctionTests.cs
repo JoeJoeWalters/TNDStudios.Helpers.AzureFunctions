@@ -17,15 +17,18 @@ namespace Tests
         public void Example()
         {
             // Arrange
-            ILogger logger = new TestLogger();
-            IBinder binder = BinderFactory.CreateBinder();
-            DefaultHttpRequest httpRequest = HttpFactory.CreateHttpRequest();
+            ILogger logger = TestLoggerFactory.CreateLogger();
+            IBinder binder = TestBinderFactory.CreateBinder();
+            DefaultHttpRequest httpRequest = TestHttpFactory.CreateHttpRequest();
 
             // Act
-            HttpStatusCode result = HttpFactory.GetHttpStatusCode(HttpFunction.Run(httpRequest, binder, logger).Result);
+            HttpResult result = TestHttpFactory.GetHttpResult(
+                HttpFunction.Run(httpRequest, binder, logger).Result
+                );
 
             // Assert
-            Assert.Equal(HttpStatusCode.BadRequest, result);
+            Assert.Equal(HttpStatusCode.BadRequest, result.StatusCode);
+            Assert.Equal("Please pass a name on the query string or in the request body", result.Value);
         }
     }
 }
