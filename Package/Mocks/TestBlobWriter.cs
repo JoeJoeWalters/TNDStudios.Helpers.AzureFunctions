@@ -8,7 +8,7 @@ namespace TNDStudios.Helpers.AzureFunctions.Testing.Mocks
     /// <summary>
     /// Mocked up writer type to collect what was created by the function
     /// </summary>
-    public class BlobWriter : TextWriter
+    public class TestBlobWriter : TextWriter
     {
         public override Encoding Encoding => Encoding.UTF8; // Hardcode the encoding type (needed by the base)
 

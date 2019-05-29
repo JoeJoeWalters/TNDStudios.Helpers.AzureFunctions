@@ -15,6 +15,7 @@ namespace Functions
         [FunctionName("HttpFunction")]
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
+            IBinder binder,
             ILogger log)
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
