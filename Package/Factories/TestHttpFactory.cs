@@ -76,9 +76,9 @@ namespace TNDStudios.Helpers.AzureFunctions.Testing.Factories
         public static HttpResponseMessage ToHttpResponseMessage(this Task<IActionResult> taskResult)
             => taskResult.Result.ToHttpResponseMessage();
         public static HttpResponseMessage ToHttpResponseMessage(this IActionResult actionResult)
-            => new HttpResponseMessage(GetHttpStatusCode(actionResult))
+            => new HttpResponseMessage(actionResult.GetHttpStatusCode())
             {
-                Content = new StringContent(GetHttpValue(actionResult))
+                Content = new StringContent(actionResult.GetHttpValue())
             };
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace TNDStudios.Helpers.AzureFunctions.Testing.Factories
         /// <typeparam name="TValue">The type required</typeparam>
         /// <param name="content">The HttpContent being read from</param>
         /// <returns>The content cast to the right type</returns>
-        public static String Get(this HttpContent content) => Get<String>(content);
+        public static String Get(this HttpContent content) => content.Get<String>(); // String "get" is the default
         public static TValue Get<TValue>(this HttpContent content)
         {
             Object result;
@@ -109,9 +109,9 @@ namespace TNDStudios.Helpers.AzureFunctions.Testing.Factories
         /// </summary>
         /// <param name="functionResult">The Task based outout from a http azure function</param>
         /// <returns>The http status code</returns>
-        public static HttpStatusCode GetHttpStatusCode(Task<IActionResult> functionResult)
-        => GetHttpStatusCode(functionResult.Result);
-        public static HttpStatusCode GetHttpStatusCode(IActionResult functionResult)
+        public static HttpStatusCode GetHttpStatusCode(this Task<IActionResult> functionResult)
+            => functionResult.Result.GetHttpStatusCode();
+        public static HttpStatusCode GetHttpStatusCode(this IActionResult functionResult)
         {
             try
             {
@@ -131,9 +131,9 @@ namespace TNDStudios.Helpers.AzureFunctions.Testing.Factories
         /// </summary>
         /// <param name="functionResult">The Task based outout from a http azure function</param>
         /// <returns>The http value</returns>
-        public static String GetHttpValue(Task<IActionResult> functionResult)
-        => GetHttpValue(functionResult.Result);
-        public static String GetHttpValue(IActionResult functionResult)
+        public static String GetHttpValue(this Task<IActionResult> functionResult)
+            => functionResult.Result.GetHttpValue();
+        public static String GetHttpValue(this IActionResult functionResult)
         {
             try
             {
