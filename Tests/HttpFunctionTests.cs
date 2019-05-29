@@ -5,6 +5,7 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Net;
+using System.Net.Http;
 using TNDStudios.Helpers.AzureFunctions.Testing.Factories;
 using TNDStudios.Helpers.AzureFunctions.Testing.Mocks;
 using Xunit;
@@ -22,13 +23,16 @@ namespace Tests
             DefaultHttpRequest httpRequest = TestHttpFactory.CreateHttpRequest();
 
             // Act
-            HttpResult result = TestHttpFactory.GetHttpResult(
-                HttpFunction.Run(httpRequest, binder, logger).Result
-                );
+            HttpResponseMessage result =
+                HttpFunction.Run(httpRequest, binder, logger)
+                .Result
+                .ToHttpResponseMessage();
 
             // Assert
             Assert.Equal(HttpStatusCode.BadRequest, result.StatusCode);
-            Assert.Equal("Please pass a name on the query string or in the request body", result.Value);
+            Assert.Equal(
+                "Please pass a name on the query string or in the request body", 
+                result.Content.ReadAsStringAsync().Result);
         }
 
         [Fact]
@@ -37,15 +41,18 @@ namespace Tests
             // Arrange
             ILogger logger = TestLoggerFactory.CreateLogger();
             IBinder binder = TestBinderFactory.CreateBinder();
-            DefaultHttpRequest httpRequest = TestHttpFactory.CreateHttpRequest("name", "Joe");
+            String name = "Joe";
+            DefaultHttpRequest httpRequest = TestHttpFactory.CreateHttpRequest("name", name);
 
             // Act
-            HttpResult result = TestHttpFactory.GetHttpResult(
-                HttpFunction.Run(httpRequest, binder, logger).Result
-                );
+            HttpResponseMessage result =
+                HttpFunction.Run(httpRequest, binder, logger)
+                .Result
+                .ToHttpResponseMessage();
 
             // Assert
             Assert.Equal(HttpStatusCode.OK, result.StatusCode);
+            Assert.Contains(name, result.Content.ReadAsStringAsync().Result);
         }
     }
 }

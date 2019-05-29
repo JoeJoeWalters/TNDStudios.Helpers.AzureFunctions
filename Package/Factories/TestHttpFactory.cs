@@ -6,17 +6,12 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace TNDStudios.Helpers.AzureFunctions.Testing.Factories
 {
-    public class HttpResult
-    {
-        public HttpStatusCode StatusCode { get; set; }
-        public String Value { get; set; }
-    }
-
     public static class TestHttpFactory
     {
         public static DefaultHttpRequest CreateHttpRequest()
@@ -78,13 +73,12 @@ namespace TNDStudios.Helpers.AzureFunctions.Testing.Factories
         /// </summary>
         /// <param name="functionResult">The Task based outout from a http azure function</param>
         /// <returns>The constructed http response</returns>
-        public static HttpResult GetHttpResult(Task<IActionResult> functionResult)
-            => GetHttpResult(functionResult.Result);
-        public static HttpResult GetHttpResult(IActionResult functionResult)
-            => new HttpResult()
+        public static HttpResponseMessage ToHttpResponseMessage(this Task<IActionResult> taskResult)
+            => taskResult.Result.ToHttpResponseMessage();
+        public static HttpResponseMessage ToHttpResponseMessage(this IActionResult actionResult)
+            => new HttpResponseMessage(GetHttpStatusCode(actionResult))
             {
-                StatusCode = GetHttpStatusCode(functionResult),
-                Value = GetHttpValue(functionResult)
+                Content = new StringContent(GetHttpValue(actionResult))
             };
 
         /// <summary>
