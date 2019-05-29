@@ -82,6 +82,29 @@ namespace TNDStudios.Helpers.AzureFunctions.Testing.Factories
             };
 
         /// <summary>
+        /// Simplify the content retrieval for testing
+        /// </summary>
+        /// <typeparam name="TValue">The type required</typeparam>
+        /// <param name="content">The HttpContent being read from</param>
+        /// <returns>The content cast to the right type</returns>
+        public static String Get(this HttpContent content) => Get<String>(content);
+        public static TValue Get<TValue>(this HttpContent content)
+        {
+            Object result;
+
+            switch (typeof(TValue).Name.ToLower().Replace("system.", String.Empty))
+            {
+                case "string":
+                    result = content.ReadAsStringAsync().Result;
+                    break;
+                default:
+                    return default(TValue);
+            }
+
+            return (TValue)Convert.ChangeType(result, typeof(TValue));
+        }
+
+        /// <summary>
         /// Convert the action result of an azure http function to a http status code
         /// </summary>
         /// <param name="functionResult">The Task based outout from a http azure function</param>

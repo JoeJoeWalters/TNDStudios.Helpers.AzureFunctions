@@ -32,7 +32,7 @@ namespace Tests
             Assert.Equal(HttpStatusCode.BadRequest, result.StatusCode);
             Assert.Equal(
                 "Please pass a name on the query string or in the request body", 
-                result.Content.ReadAsStringAsync().Result);
+                result.Content.Get<String>());
         }
 
         [Fact]
@@ -52,7 +52,7 @@ namespace Tests
 
             // Assert
             Assert.Equal(HttpStatusCode.OK, result.StatusCode);
-            Assert.Contains(name, result.Content.ReadAsStringAsync().Result);
+            Assert.Contains(name, result.Content.Get<String>());
         }
     }
 }
