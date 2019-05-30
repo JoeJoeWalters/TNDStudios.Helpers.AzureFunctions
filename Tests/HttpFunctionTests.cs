@@ -4,8 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using System.Threading;
+using System.Threading.Tasks;
 using TNDStudios.Helpers.AzureFunctions.Testing.Factories;
 using TNDStudios.Helpers.AzureFunctions.Testing.Mocks;
 using Xunit;
@@ -19,7 +22,7 @@ namespace Tests
         {
             // Arrange
             ILogger logger = TestLoggerFactory.CreateLogger();
-            IBinder binder = TestBinderFactory.CreateBinder();
+            Binder binder = new TestBinder(); //TestBinderFactory.CreateBinder();
             DefaultHttpRequest httpRequest = TestHttpFactory.CreateHttpRequest();
 
             // Act
@@ -31,7 +34,7 @@ namespace Tests
             // Assert
             Assert.Equal(HttpStatusCode.BadRequest, result.StatusCode);
             Assert.Equal(
-                "Please pass a name on the query string or in the request body", 
+                "Please pass a name on the query string or in the request body",
                 result.Content.Get<String>());
         }
 
@@ -40,7 +43,7 @@ namespace Tests
         {
             // Arrange
             ILogger logger = TestLoggerFactory.CreateLogger();
-            IBinder binder = TestBinderFactory.CreateBinder();
+            Binder binder = new TestBinder(); //TestBinderFactory.CreateBinder();
             String name = "Joe";
             DefaultHttpRequest httpRequest = TestHttpFactory.CreateHttpRequest("name", name);
 

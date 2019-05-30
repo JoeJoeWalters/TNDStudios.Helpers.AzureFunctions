@@ -8,7 +8,7 @@ namespace TNDStudios.Helpers.AzureFunctions.Testing.Mocks
     /// <summary>
     /// Mocked up writer type to collect what was created by the function
     /// </summary>
-    public class TestBlobWriter : TextWriter
+    public class TestTextWriter : TextWriter
     {
         public override Encoding Encoding => Encoding.UTF8; // Hardcode the encoding type (needed by the base)
 
@@ -17,7 +17,7 @@ namespace TNDStudios.Helpers.AzureFunctions.Testing.Mocks
         private List<String> writtenItems = new List<String>();
         public IReadOnlyList<String> WrittenItems { get => writtenItems; }
 
-        // Override the collection of the writing of the documents
+        // Override the collection of the writing of the text data
         public override void Write(String value) => writtenItems.Add(value);
     }
 }
