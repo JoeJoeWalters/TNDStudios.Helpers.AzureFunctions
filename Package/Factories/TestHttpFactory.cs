@@ -88,20 +88,22 @@ namespace TNDStudios.Helpers.AzureFunctions.Testing.Factories
         /// <param name="content">The HttpContent being read from</param>
         /// <returns>The content cast to the right type</returns>
         public static String Get(this HttpContent content) => content.Get<String>(); // String "get" is the default
-        public static TValue Get<TValue>(this HttpContent content)
+        public static T Get<T>(this HttpContent content)
         {
             Object result;
 
-            switch (typeof(TValue).Name.ToLower().Replace("system.", String.Empty))
+            switch (typeof(T)?.Name?
+                    .ToLower()
+                    .Replace("system.", String.Empty))
             {
                 case "string":
                     result = content.ReadAsStringAsync().Result;
                     break;
                 default:
-                    return default(TValue);
+                    return default(T);
             }
 
-            return (TValue)Convert.ChangeType(result, typeof(TValue));
+            return (T)Convert.ChangeType(result, typeof(T));
         }
 
         /// <summary>

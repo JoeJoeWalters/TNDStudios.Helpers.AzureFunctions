@@ -1,14 +1,9 @@
 using Functions;
 using Microsoft.AspNetCore.Http.Internal;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
-using System.Threading;
-using System.Threading.Tasks;
 using TNDStudios.Helpers.AzureFunctions.Testing.Factories;
 using TNDStudios.Helpers.AzureFunctions.Testing.Mocks;
 using Xunit;

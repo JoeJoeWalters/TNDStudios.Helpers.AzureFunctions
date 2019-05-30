@@ -19,7 +19,7 @@ namespace TNDStudios.Helpers.AzureFunctions.Testing.Mocks
         public override Task<TValue> BindAsync<TValue>(Attribute[] attributes, CancellationToken cancellationToken = default)
         {
             Object result = default(TValue);
-            String typeString = typeof(TValue).Name
+            String typeString = typeof(TValue)?.Name?
                     .ToLower()
                     .Replace("system.", String.Empty);
 

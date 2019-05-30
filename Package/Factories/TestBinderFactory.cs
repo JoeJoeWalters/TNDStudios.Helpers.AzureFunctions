@@ -1,8 +1,4 @@
-﻿using Microsoft.Azure.WebJobs;
-using System;
-using System.IO;
-using System.Threading;
-using TNDStudios.Helpers.AzureFunctions.Testing.Mocks;
+﻿using TNDStudios.Helpers.AzureFunctions.Testing.Mocks;
 
 namespace TNDStudios.Helpers.AzureFunctions.Testing.Factories
 {
