@@ -13,9 +13,7 @@ namespace TNDStudios.Helpers.AzureFunctions.Testing.Factories
         /// due to Binder extending IBinder and not implementing it's own interface
         /// </summary>
         /// <returns>A Mocked Binder</returns>
-        public static Binder CreateBinder()
-        {
-            return new Binder();
-        }
+        public static TestBinder CreateBinder()
+            => new TestBinder();
     }
 }

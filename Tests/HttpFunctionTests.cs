@@ -22,7 +22,7 @@ namespace Tests
         {
             // Arrange
             ILogger logger = TestLoggerFactory.CreateLogger();
-            Binder binder = new TestBinder(); //TestBinderFactory.CreateBinder();
+            TestBinder binder = TestBinderFactory.CreateBinder();
             DefaultHttpRequest httpRequest = TestHttpFactory.CreateHttpRequest();
 
             // Act
@@ -43,7 +43,7 @@ namespace Tests
         {
             // Arrange
             ILogger logger = TestLoggerFactory.CreateLogger();
-            Binder binder = new TestBinder(); //TestBinderFactory.CreateBinder();
+            TestBinder binder = TestBinderFactory.CreateBinder();
             String name = "Joe";
             DefaultHttpRequest httpRequest = TestHttpFactory.CreateHttpRequest("name", name);
 
@@ -56,6 +56,8 @@ namespace Tests
             // Assert
             Assert.Equal(HttpStatusCode.OK, result.StatusCode);
             Assert.Contains(name, result.Content.Get<String>());
+            Assert.Equal(1, binder.TextWriters.Count);
+            Assert.Equal(1, binder.TextWriters[0].WrittenItems.Count);
         }
     }
 }
