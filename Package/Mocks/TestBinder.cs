@@ -19,12 +19,14 @@ namespace TNDStudios.Helpers.AzureFunctions.Testing.Mocks
         public override Task<TValue> BindAsync<TValue>(Attribute[] attributes, CancellationToken cancellationToken = default)
         {
             Object result = default(TValue);
-            String typeString = typeof(TValue).Name.ToLower().Replace("system.", String.Empty);
+            String typeString = typeof(TValue).Name
+                    .ToLower()
+                    .Replace("system.", String.Empty);
 
             switch (typeString)
             {
                 case "textwriter":
-                    TestTextWriter textWriter = new TestTextWriter();
+                    TestTextWriter textWriter = new TestTextWriter(attributes, cancellationToken);
                     textWriters.Add(textWriter);
                     result = textWriter;
                     break;
