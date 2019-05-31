@@ -1,10 +1,6 @@
 using Functions;
-using Microsoft.AspNetCore.Http.Internal;
 using Microsoft.Extensions.Logging;
 using System;
-using System.IO;
-using System.Net;
-using System.Net.Http;
 using System.Text;
 using TNDStudios.Helpers.AzureFunctions.Testing.Factories;
 using TNDStudios.Helpers.AzureFunctions.Testing.Mocks;
