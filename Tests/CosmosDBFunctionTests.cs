@@ -1,9 +1,7 @@
 ﻿using Functions;
 using Microsoft.Azure.Documents;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using TNDStudios.Helpers.AzureFunctions.Testing.Factories;
 using TNDStudios.Helpers.AzureFunctions.Testing.Mocks;
 using Xunit;
@@ -24,6 +22,7 @@ namespace Tests
             CosmosDBFunction.Run(documents, output, logger);
 
             // Assert
+            Assert.Equal(1, output.WrittenItems.Count);
         }
     }
 }

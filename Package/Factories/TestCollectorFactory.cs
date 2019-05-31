@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using TNDStudios.Helpers.AzureFunctions.Testing.Mocks;
+﻿using TNDStudios.Helpers.AzureFunctions.Testing.Mocks;
 
 namespace TNDStudios.Helpers.AzureFunctions.Testing.Factories
 {
@@ -11,7 +8,7 @@ namespace TNDStudios.Helpers.AzureFunctions.Testing.Factories
         /// Return a mocked Async collector for a given type which will collect
         /// the output for a given function of whatever type it may be
         /// </summary>
-        /// <returns>A Mocked Binder</returns>
+        /// <returns>A Mocked IAsyncCollector implementation</returns>
         public static TestAsyncCollector<T> CreateAsyncCollector<T>()
             => new TestAsyncCollector<T>();
     }

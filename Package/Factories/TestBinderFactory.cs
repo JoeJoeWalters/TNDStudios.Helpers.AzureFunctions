@@ -8,7 +8,7 @@ namespace TNDStudios.Helpers.AzureFunctions.Testing.Factories
         /// Create a basic mock for the actual class and not the interface
         /// due to Binder extending IBinder and not implementing it's own interface
         /// </summary>
-        /// <returns>A Mocked Binder</returns>
+        /// <returns>A overloaded Binder implementation</returns>
         public static TestBinder CreateBinder()
             => new TestBinder();
     }
