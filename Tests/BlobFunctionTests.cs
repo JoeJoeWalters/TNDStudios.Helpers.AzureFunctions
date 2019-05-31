@@ -20,7 +20,7 @@ namespace Tests
             // Arrange
             ILogger logger = TestLoggerFactory.CreateLogger();
             String name = "name of the blob";
-            TestStream triggerBlob = TestStreamFactory.CreateStream("Test Data");
+            TestStream triggerBlob = TestStreamFactory.CreateStream(Encoding.UTF8, "Test Data");
             TestStream outputBlob1 = TestStreamFactory.CreateStream();
             TestStream outputBlob2 = TestStreamFactory.CreateStream();
 
