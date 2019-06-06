@@ -2,6 +2,7 @@
 using System.IO;
 using System.Reflection;
 using System.Text;
+using TNDStudios.Helpers.AzureFunctions.Testing.Helpers;
 using TNDStudios.Helpers.AzureFunctions.Testing.Mocks;
 
 namespace TNDStudios.Helpers.AzureFunctions.Testing.Factories
@@ -24,15 +25,7 @@ namespace TNDStudios.Helpers.AzureFunctions.Testing.Factories
             {
                 case TestStreamType.EmbeddedResource:
 
-                    using (Stream resourceStream = Assembly
-                            .GetCallingAssembly()
-                            .GetManifestResourceStream(loadFrom))
-                    {
-                        using (StreamReader sr = new StreamReader(resourceStream, encoding))
-                        {
-                            value = sr.ReadToEnd();
-                        }
-                    }
+                    value = Assembly.GetCallingAssembly().GetResourceString(loadFrom, encoding);
 
                     break;
 

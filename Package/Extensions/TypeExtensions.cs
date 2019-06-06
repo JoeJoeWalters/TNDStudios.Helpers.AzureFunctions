@@ -16,8 +16,7 @@ namespace TNDStudios.Helpers.AzureFunctions.Testing.Extensions
             => (((Boolean)typeOf?.Name?.Contains('.')) ?
                     typeOf?.Name?.Split('.').Reverse().First() : 
                     (typeOf?.Name ?? String.Empty))
-                .ToLower()
-                .Trim();
+                .ToLower().Trim();
                 
     }
 }
