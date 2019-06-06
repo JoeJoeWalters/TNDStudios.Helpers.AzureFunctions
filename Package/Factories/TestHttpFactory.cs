@@ -9,6 +9,7 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using TNDStudios.Helpers.AzureFunctions.Testing.Extensions;
 
 namespace TNDStudios.Helpers.AzureFunctions.Testing.Factories
 {
@@ -91,14 +92,13 @@ namespace TNDStudios.Helpers.AzureFunctions.Testing.Factories
         public static T Get<T>(this HttpContent content)
         {
             Object result;
-
-            switch (typeof(T)?.Name?
-                    .ToLower()
-                    .Replace("system.", String.Empty))
+            
+            switch (typeof(T).ShortName())
             {
                 case "string":
                     result = content.ReadAsStringAsync().Result;
                     break;
+
                 default:
                     return default(T);
             }

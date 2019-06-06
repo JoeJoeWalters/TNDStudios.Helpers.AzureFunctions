@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using TNDStudios.Helpers.AzureFunctions.Testing.Extensions;
 
 namespace TNDStudios.Helpers.AzureFunctions.Testing.Mocks
 {
@@ -19,11 +20,8 @@ namespace TNDStudios.Helpers.AzureFunctions.Testing.Mocks
         public override Task<TValue> BindAsync<TValue>(Attribute[] attributes, CancellationToken cancellationToken = default)
         {
             Object result = default(TValue);
-            String typeString = typeof(TValue)?.Name?
-                    .ToLower()
-                    .Replace("system.", String.Empty);
 
-            switch (typeString)
+            switch (typeof(TValue).ShortName())
             {
                 case "textwriter":
                     TestTextWriter textWriter = new TestTextWriter(attributes, cancellationToken);
