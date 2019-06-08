@@ -3,10 +3,16 @@
   <PropertyGroup>
 	<TargetFramework>netcoreapp2.2</TargetFramework>
 	<IsPackable>false</IsPackable>
+
+	<!-- 
+	Fix to Azure Pipelines not being able to decide on the .Net version build version
+	https://stackoverflow.com/questions/51642172/the-project-was-restored-using-microsoft-netcore-app-version-2-1-0-but-with-cur/51644988#51644988
+	-->
 	<TargetLatestRuntimePatch>true</TargetLatestRuntimePatch>
 	<RuntimeFrameworkVersion>2.2</RuntimeFrameworkVersion>
 	<PlatformTarget>AnyCPU</PlatformTarget>
 	<RuntimeIdentifier>win-x64</RuntimeIdentifier>
+
   </PropertyGroup>
  
   <ItemGroup>
