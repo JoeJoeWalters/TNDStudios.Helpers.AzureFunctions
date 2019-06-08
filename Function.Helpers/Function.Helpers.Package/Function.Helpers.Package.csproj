@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>TNDStudios.Helpers.AzureFunctions</AssemblyName>
+    <RootNamespace>TNDStudios.Helpers.AzureFunctions</RootNamespace>
+    <Version>0.0.1</Version>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>The Naked Developer</Authors>
+    <Description>Helpers for Azure Functions (v2)</Description>
+    <Copyright>The Naked Developer</Copyright>
+  </PropertyGroup>
+
+</Project>
