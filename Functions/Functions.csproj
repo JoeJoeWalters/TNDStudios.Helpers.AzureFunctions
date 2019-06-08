@@ -1,7 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
-    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+	<TargetLatestRuntimePatch>true</TargetLatestRuntimePatch>
+	<RuntimeFrameworkVersion>2.2</RuntimeFrameworkVersion>
+	<PlatformTarget>AnyCPU</PlatformTarget>
+	<RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <AzureFunctionsVersion>v2</AzureFunctionsVersion>
   </PropertyGroup>
   <ItemGroup>
