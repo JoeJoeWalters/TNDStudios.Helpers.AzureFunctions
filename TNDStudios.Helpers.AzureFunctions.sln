@@ -3,11 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28917.181
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Package", "Package\Package.csproj", "{0237C099-A27D-47A1-A9B7-AD0CB3116CD6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Testing.Helpers.Package", "Testing.Helpers\Testing.Helpers.Package\Testing.Helpers.Package.csproj", "{0237C099-A27D-47A1-A9B7-AD0CB3116CD6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Functions", "Functions\Functions.csproj", "{49418450-B651-4748-8E09-7A79058B2A2D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "Tests\Tests.csproj", "{654C10A0-3081-4005-A440-4B9DBFC60AF7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Testing.Helpers.Package.Tests", "Testing.Helpers\Testing.Helpers.Package.Tests\Testing.Helpers.Package.Tests.csproj", "{654C10A0-3081-4005-A440-4B9DBFC60AF7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing.Helpers", "Testing.Helpers", "{C7AC2F1A-B8CE-4DE5-89F8-CC62F751D77F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Function.Helpers", "Function.Helpers", "{E24F955E-E07B-4AA6-8289-B52FE5FB454F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,6 +34,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0237C099-A27D-47A1-A9B7-AD0CB3116CD6} = {C7AC2F1A-B8CE-4DE5-89F8-CC62F751D77F}
+		{654C10A0-3081-4005-A440-4B9DBFC60AF7} = {C7AC2F1A-B8CE-4DE5-89F8-CC62F751D77F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {12343D3B-38BB-47B2-A66B-D1BED9591195}

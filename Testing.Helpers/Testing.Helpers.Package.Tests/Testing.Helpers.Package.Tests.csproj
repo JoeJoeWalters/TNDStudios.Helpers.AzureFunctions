@@ -21,8 +21,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Functions\Functions.csproj" />
-    <ProjectReference Include="..\Package\Package.csproj" />
+    <ProjectReference Include="..\..\Functions\Functions.csproj" />
+    <ProjectReference Include="..\Testing.Helpers.Package\Testing.Helpers.Package.csproj" />
   </ItemGroup>
 
 </Project>
