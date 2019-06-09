@@ -11,4 +11,14 @@
     <Copyright>The Naked Developer</Copyright>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="ServiceBus\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Azure.WebJobs" Version="3.0.9" />
+    <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.CosmosDB" Version="3.0.3" />
+    <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="1.0.28" />
+  </ItemGroup>
+
 </Project>
