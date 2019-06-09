@@ -32,5 +32,5 @@ steps:
   inputs:
     testSelector: 'testAssemblies'
     testAssemblyVer2: '**\Testing.Helpers.Tests.dll'
-    searchFolder: '$(System.DefaultWorkingDirectory)'
+    searchFolder: '$(System.DefaultWorkingDirectory)\Testing.Helpers.Tests\bin'
     codeCoverageEnabled: true
