@@ -31,6 +31,6 @@ steps:
 - task: VSTest@2
   inputs:
     testSelector: 'testAssemblies'
-    testAssemblyVer2: '**\*.tests.dll'
+    testAssemblyVer2: '**\Testing.Helpers.Tests\bin\Release\**\Testing.Helpers.Tests.dll'
     searchFolder: '$(System.DefaultWorkingDirectory)'
     codeCoverageEnabled: true
