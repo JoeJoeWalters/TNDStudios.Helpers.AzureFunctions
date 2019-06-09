@@ -25,7 +25,16 @@ namespace TNDStudios.Helpers.AzureFunctions.Testing.Factories
             {
                 case TestStreamType.EmbeddedResource:
 
-                    value = Assembly.GetCallingAssembly().GetResourceString(loadFrom, encoding);
+                    Assembly assembly = Assembly.GetCallingAssembly();
+                    try
+                    {
+                        loadFrom = loadFrom.Replace("*", assembly?.GetName()?.Name); // Wildcarding of the path to avoid issues when renaming projects
+                        value = assembly.GetResourceString(loadFrom, encoding);
+                    }
+                    catch(Exception ex)
+                    {
+                        value = $"Error collecting test data: '{ex.Message}'";
+                    }
 
                     break;
 
