@@ -18,7 +18,7 @@ namespace Tests
             String name = "name of the blob";
             TestStream triggerBlob = TestStreamFactory.CreateStream(TestStreamType.EmbeddedResource,
                                                                     Encoding.UTF8,
-                                                                    "Tests.Data.Files.TestFile.xml");
+                                                                    "Testing.Helpers.Tests.Data.Files.TestFile.xml");
             TestStream outputBlob1 = TestStreamFactory.CreateStream(TestStreamType.Content);
             TestStream outputBlob2 = TestStreamFactory.CreateStream(TestStreamType.Content);
 
