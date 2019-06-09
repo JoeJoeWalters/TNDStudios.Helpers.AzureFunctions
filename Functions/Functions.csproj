@@ -10,7 +10,6 @@
 	<TargetLatestRuntimePatch>true</TargetLatestRuntimePatch>
 	<RuntimeFrameworkVersion>2.2</RuntimeFrameworkVersion>
 	<PlatformTarget>AnyCPU</PlatformTarget>
-	<RuntimeIdentifier>win-x64</RuntimeIdentifier>
 
   </PropertyGroup>
   <ItemGroup>
