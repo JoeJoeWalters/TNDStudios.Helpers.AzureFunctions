@@ -30,6 +30,10 @@ namespace Functions
                 collectionName: outputCollectionName,
                 ConnectionStringSetting = outputConnectionStringSetting,
                 CreateIfNotExists = true)]IAsyncCollector<Document> output,
+            [CosmosDB(databaseName: outputDatabaseName,
+                collectionName: outputCollectionName,
+                ConnectionStringSetting = outputConnectionStringSetting
+                )] IDocumentClient documentClient,
             ILogger log)
         {
             if (input != null && input.Count > 0)

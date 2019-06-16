@@ -17,9 +17,10 @@ namespace Tests
             ILogger logger = TestLoggerFactory.CreateLogger();
             List<Document> documents = new List<Document>() { new Document() };
             TestAsyncCollector<Document> output = TestCollectorFactory.CreateAsyncCollector<Document>();
+            IDocumentClient documentClient = TestCosmosDBFactory.CreateDocumentClient();
 
             // Act
-            CosmosDBFunction.Run(documents, output, logger);
+            CosmosDBFunction.Run(documents, output, documentClient, logger);
 
             // Assert
             Assert.Equal(1, output.WrittenItems.Count);
