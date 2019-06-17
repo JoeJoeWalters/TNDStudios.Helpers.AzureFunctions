@@ -11,8 +11,8 @@ namespace TNDStudios.Helpers.AzureFunctions.Testing.Mocks
         private IList<T> writtenItems;
         public IList<T> WrittenItems { get => writtenItems; }
 
-        public TestAsyncCollector()
-            => writtenItems = new List<T>();
+        public TestAsyncCollector(List<T> initialisingList)
+            => writtenItems = initialisingList ?? new List<T>();
 
         public Task AddAsync(T item, CancellationToken cancellationToken = default)
         {

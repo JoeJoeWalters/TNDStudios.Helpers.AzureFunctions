@@ -1,5 +1,7 @@
 ﻿using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using NSubstitute;
 using System;
 using System.Collections.Generic;
@@ -23,6 +25,25 @@ namespace TNDStudios.Helpers.AzureFunctions.Testing.Factories
 
     public static class TestCosmosDBFactory
     {
+        /// <summary>
+        /// Convert a list of document from a list of objects, if the 
+        /// objects given have an id property then it will be used for the
+        /// document id
+        /// </summary>
+        /// <param name="objects">The objects to initialise the documents</param>
+        /// <returns>An initialised list of objects</returns>
+        public static List<Document> CreateDocumentList(String resourceString)
+        {
+            JObject deserialised = JObject.Parse(resourceString);
+
+            return CreateDocumentList(new List<object>());
+        }
+
+        public static List<Document> CreateDocumentList(List<object> objects)
+        {
+            return new List<Document>();
+        }
+
         /// <summary>
         /// Get test Document Client for Cosmos DB
         /// </summary>

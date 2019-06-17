@@ -16,10 +16,14 @@ namespace Tests
         {
             // Arrange
             ILogger logger = TestLoggerFactory.CreateLogger();
-            List<Document> documents = new List<Document>() { new Document() };
-            TestAsyncCollector<Document> output = TestCollectorFactory.CreateAsyncCollector<Document>();
+            List<Document> documents = new List<Document>()
+                {
+                    new Document(){ }
+                };
+            TestAsyncCollector<Document> output = TestCollectorFactory
+                .CreateAsyncCollector<Document>(documents);
             IDocumentClient documentClient = TestCosmosDBFactory
-                .CreateDocumentClient(documents, 
+                .CreateDocumentClient(documents,
                     new DocumentClientTestPolicy()
                     {
                         ReadException = new Exception() { },
@@ -30,7 +34,7 @@ namespace Tests
             CosmosDBFunction.Run(documents, output, documentClient, logger);
 
             // Assert
-            Assert.Equal(1, output.WrittenItems.Count);
+            Assert.Equal(2, output.WrittenItems.Count);
         }
     }
 }

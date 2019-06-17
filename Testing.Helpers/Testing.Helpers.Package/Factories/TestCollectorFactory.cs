@@ -1,4 +1,5 @@
-﻿using TNDStudios.Helpers.AzureFunctions.Testing.Mocks;
+﻿using System.Collections.Generic;
+using TNDStudios.Helpers.AzureFunctions.Testing.Mocks;
 
 namespace TNDStudios.Helpers.AzureFunctions.Testing.Factories
 {
@@ -10,6 +11,9 @@ namespace TNDStudios.Helpers.AzureFunctions.Testing.Factories
         /// </summary>
         /// <returns>A Mocked IAsyncCollector implementation</returns>
         public static TestAsyncCollector<T> CreateAsyncCollector<T>()
-            => new TestAsyncCollector<T>();
+            => CreateAsyncCollector<T>(new List<T>() { });
+
+        public static TestAsyncCollector<T> CreateAsyncCollector<T>(List<T> initialisingList)
+            => new TestAsyncCollector<T>(initialisingList);
     }
 }
