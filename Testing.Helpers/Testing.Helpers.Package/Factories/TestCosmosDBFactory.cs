@@ -5,6 +5,8 @@ using Newtonsoft.Json.Linq;
 using NSubstitute;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using TNDStudios.Helpers.AzureFunctions.Testing.Mocks;
@@ -32,16 +34,48 @@ namespace TNDStudios.Helpers.AzureFunctions.Testing.Factories
         /// </summary>
         /// <param name="objects">The objects to initialise the documents</param>
         /// <returns>An initialised list of objects</returns>
-        public static List<Document> CreateDocumentList(String resourceString)
+        public static List<Document> CreateDocumentList(Stream stream)
         {
-            JObject deserialised = JObject.Parse(resourceString);
+            List<Document> documents = new List<Document>(); // The response object
+            String json = String.Empty; // The json payload which is empty by default
 
-            return CreateDocumentList(new List<object>());
+            // Load the stream in to the json payload variable
+            stream.Position = 0;
+            using (StreamReader reader = new StreamReader(stream, Encoding.UTF8))
+                json = reader.ReadToEnd();
+
+            // Check to see if the object is an array, if it is then enumerate it
+            JToken root = JToken.Parse(json);
+            if (root != null && 
+                root.Type == JTokenType.Array &&
+                root.HasValues)
+            { 
+                foreach (JToken item in JArray.Parse(json))
+                {
+                    Document document = new Document();
+                    document.LoadFrom(new JTokenReader(item));
+                    documents.Add(document);
+                }
+            }
+            
+            return documents;
         }
-
         public static List<Document> CreateDocumentList(List<object> objects)
+            => objects.Select(obj => obj.ToDocument()).ToList();
+
+        /// <summary>
+        /// Convert an object in to a document
+        /// </summary>
+        /// <returns>A document converted from the object</returns>
+        public static Document ToDocument<T>(this T obj) where T : class
         {
-            return new List<Document>();
+            var dynamicDoc = JsonConvert.DeserializeObject<dynamic>(JsonConvert.SerializeObject(obj));
+            using (JsonReader reader = new JTokenReader(dynamicDoc))
+            {
+                var document = new Document();
+                document.LoadFrom(reader);
+                return document;
+            }
         }
 
         /// <summary>

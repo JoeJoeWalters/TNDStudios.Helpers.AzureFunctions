@@ -16,10 +16,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Data\Files\documentloader.json" />
     <None Remove="Data\Files\TestFile.xml" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Data\Files\documentloader.json" />
     <EmbeddedResource Include="Data\Files\TestFile.xml" />
   </ItemGroup>
 
