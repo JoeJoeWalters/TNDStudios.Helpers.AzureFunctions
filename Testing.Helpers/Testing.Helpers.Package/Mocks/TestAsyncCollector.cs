@@ -30,8 +30,7 @@ namespace TNDStudios.Helpers.AzureFunctions.Testing.Mocks
         public TestAsyncCollector(List<T> initialisingList, Func<T, T, Boolean> matchLogic)
         {
             // Assign the logic for item matching (if we should do merges on writing)
-            this.matchLogic = (matchLogic == null) ? 
-                DefaultMatchLogic : (Func<T, T, Boolean>)matchLogic;
+            this.matchLogic = (matchLogic == null) ? DefaultMatchLogic : matchLogic;
 
             // Assign the initialised list to the incoming list (so we can share the object reference)
             this.writtenItems = initialisingList ?? new List<T>();
@@ -40,11 +39,15 @@ namespace TNDStudios.Helpers.AzureFunctions.Testing.Mocks
         public Task AddAsync(T item, CancellationToken cancellationToken = default)
         {
             // Check the match logic first to see if we need to apply merges etc.
+            // Can't have a nullable T so added a second found flag instead of just
+            // comparing foundItem == null
             T foundItem = default(T);
             Boolean found = false;
 
+            // Loop the items in the stored list
             foreach (T compareTo in writtenItems)
             {
+                // Did the match logic say these two items were the same?
                 if (matchLogic(item, compareTo))
                 {
                     foundItem = compareTo;
@@ -52,10 +55,11 @@ namespace TNDStudios.Helpers.AzureFunctions.Testing.Mocks
                 }
             }
 
+            // Found a match? Set the pointer to the new object
             if (found)
                 foundItem = item;
             else
-                writtenItems.Add(item);
+                writtenItems.Add(item); // Not a match, add the item
 
             return Task.FromResult<Boolean>(true);
         }
