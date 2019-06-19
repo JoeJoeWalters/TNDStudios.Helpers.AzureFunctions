@@ -39,7 +39,7 @@ namespace Tests
             CosmosDBFunction.Run(documents, output, documentClient, logger);
 
             // Assert
-            Assert.Equal(3, output.WrittenItems.Count);
+            Assert.Equal(2, output.WrittenItems.Count);
         }
     }
 }

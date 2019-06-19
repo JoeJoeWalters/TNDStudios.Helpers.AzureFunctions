@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.Azure.Documents;
+using System;
+using System.Collections.Generic;
+using TNDStudios.Helpers.AzureFunctions.Testing.Extensions;
 using TNDStudios.Helpers.AzureFunctions.Testing.Mocks;
 
 namespace TNDStudios.Helpers.AzureFunctions.Testing.Factories
@@ -14,6 +17,36 @@ namespace TNDStudios.Helpers.AzureFunctions.Testing.Factories
             => CreateAsyncCollector<T>(new List<T>() { });
 
         public static TestAsyncCollector<T> CreateAsyncCollector<T>(List<T> initialisingList)
-            => new TestAsyncCollector<T>(initialisingList);
+            => new TestAsyncCollector<T>(initialisingList, GetMatchLogic<T>());
+
+        /// <summary>
+        /// Determine if the collector should perform merge / matching
+        /// logic when the item is written and the item is identified 
+        /// as one we have already got in the initialising array
+        /// </summary>
+        /// <typeparam name="T">The type of object the collector manages</typeparam>
+        /// <returns>The logic to apply in the collector</returns>
+        private static Func<T, T, Boolean> GetMatchLogic<T>()
+        {
+            switch(typeof(T).ShortName())
+            {
+                case "document":
+
+                    return DocumentMatchLogic<T>;
+
+                default:
+
+                    return null;
+            }
+        }
+
+        private static Boolean DocumentMatchLogic<T>(T input, T compareTo)
+        {
+            Document sourceDoc = (Document)Convert.ChangeType(input, typeof(Document));
+            Document compareDoc = (Document)Convert.ChangeType(compareTo, typeof(Document));
+
+            return (sourceDoc != null && compareDoc != null &&
+                sourceDoc.Id == compareDoc.Id);            
+        }
     }
 }
