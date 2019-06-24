@@ -9,21 +9,10 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using TNDStudios.Helpers.AzureFunctions.Testing.Policies;
 
 namespace TNDStudios.Helpers.AzureFunctions.Testing.Factories
 {
-    /// <summary>
-    /// Definition of how a test document client should behave
-    /// </summary>
-    public class DocumentClientTestPolicy
-    {
-        /// <summary>
-        /// Exceptions to raise when actions happen
-        /// </summary>
-        public Exception ReadException { get; set; }
-        public Exception WriteException { get; set; }
-    }
-
     public static class TestCosmosDBFactory
     {
         /// <summary>
@@ -81,7 +70,9 @@ namespace TNDStudios.Helpers.AzureFunctions.Testing.Factories
         /// Get test Document Client for Cosmos DB
         /// </summary>
         /// <returns></returns>
-        public static IDocumentClient CreateDocumentClient(List<Document> initialisingDocuments, DocumentClientTestPolicy policy)
+        public static IDocumentClient CreateDocumentClient(
+            List<Document> initialisingDocuments, 
+            TestExceptionPolicy policy)
         {
             IDocumentClient client = Substitute.For<IDocumentClient>();
 

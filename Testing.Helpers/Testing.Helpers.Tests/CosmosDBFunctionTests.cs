@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Text;
 using TNDStudios.Helpers.AzureFunctions.Testing.Factories;
 using TNDStudios.Helpers.AzureFunctions.Testing.Mocks;
+using TNDStudios.Helpers.AzureFunctions.Testing.Policies;
 using Xunit;
 
 namespace Tests
@@ -29,7 +30,7 @@ namespace Tests
 
             IDocumentClient documentClient = TestCosmosDBFactory
                 .CreateDocumentClient(documents,
-                    new DocumentClientTestPolicy()
+                    new TestExceptionPolicy()
                     {
                         ReadException = new Exception() { },
                         WriteException = new Exception() { }
