@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using TNDStudios.Helpers.AzureFunctions.Testing.Extensions;
 using TNDStudios.Helpers.AzureFunctions.Testing.Mocks;
+using TNDStudios.Helpers.AzureFunctions.Testing.Policies;
 
 namespace TNDStudios.Helpers.AzureFunctions.Testing.Factories
 {
@@ -17,7 +18,10 @@ namespace TNDStudios.Helpers.AzureFunctions.Testing.Factories
             => CreateAsyncCollector<T>(new List<T>() { });
 
         public static TestAsyncCollector<T> CreateAsyncCollector<T>(List<T> initialisingList)
-            => new TestAsyncCollector<T>(initialisingList, GetMatchLogic<T>());
+            => CreateAsyncCollector<T>(initialisingList, new TestExceptionPolicy() { });
+
+        public static TestAsyncCollector<T> CreateAsyncCollector<T>(List<T> initialisingList, TestExceptionPolicy policy)
+            => new TestAsyncCollector<T>(initialisingList, GetMatchLogic<T>(), policy);
 
         /// <summary>
         /// Determine if the collector should perform merge / matching
@@ -28,7 +32,7 @@ namespace TNDStudios.Helpers.AzureFunctions.Testing.Factories
         /// <returns>The logic to apply in the collector</returns>
         private static Func<T, T, Boolean> GetMatchLogic<T>()
         {
-            switch(typeof(T).ShortName())
+            switch (typeof(T).ShortName())
             {
                 case "document":
 
@@ -46,7 +50,7 @@ namespace TNDStudios.Helpers.AzureFunctions.Testing.Factories
             Document compareDoc = (Document)Convert.ChangeType(compareTo, typeof(Document));
 
             return (sourceDoc != null && compareDoc != null &&
-                sourceDoc.Id == compareDoc.Id);            
+                sourceDoc.Id == compareDoc.Id);
         }
     }
 }

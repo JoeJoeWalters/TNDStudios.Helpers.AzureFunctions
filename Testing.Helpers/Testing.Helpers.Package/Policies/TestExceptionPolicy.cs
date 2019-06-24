@@ -12,5 +12,6 @@ namespace TNDStudios.Helpers.AzureFunctions.Testing.Policies
         /// </summary>
         public Exception ReadException { get; set; }
         public Exception WriteException { get; set; }
+        public Exception FlushException { get; set; }
     }
 }
