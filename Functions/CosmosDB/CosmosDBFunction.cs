@@ -3,7 +3,6 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
-using TNDStudios.Helpers.AzureFunctions.CosmosDB;
 
 namespace Functions
 {
@@ -38,9 +37,13 @@ namespace Functions
         {
             if (input != null && input.Count > 0)
             {
-                using (CosmosDBWriterHelper writer = CosmosDBHelperFactory.GetWriter(output))
+                try
                 {
-                    Boolean writeResult = await writer.AddAsync(input[0]);
+                    await output.AddAsync(input[0]);
+                }
+                catch(Exception ex)
+                {
+                    log.LogError(ex, $"Could not save document to Cosmos - '{ex.Message}'");
                 }
             }
         }
